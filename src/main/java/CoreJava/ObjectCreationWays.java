@@ -50,9 +50,30 @@ public class ObjectCreationWays {
     public static void main(String[] args) throws CloneNotSupportedException, ClassNotFoundException {
 
         ClassA objA = new ClassA();
+
         objA.setNumber(10);
+
         objA.display();
+
         System.out.println("First : " + objA);
+
+        objA.setNumber(123);
+
+        System.out.println("Object1 hash : " + objA.hashCode());
+
+        ClassA objA2 = new ClassA();
+
+        objA2 = objA;
+
+        objA2.setNumber(321);
+
+        System.out.println("obj2 : " +objA2.getNumber());
+
+        System.out.println("obj1 : " + objA.getNumber());
+
+        System.out.println("Object2 hash : " + objA2.hashCode());
+
+
 
 //        objA.callMain();
 
