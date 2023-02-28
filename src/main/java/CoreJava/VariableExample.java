@@ -1,5 +1,17 @@
 package CoreJava;
 
+class A{
+
+    final int a;
+
+    A(){
+        a=100;
+    }
+
+}
+class B{
+    VariableExample ve = new VariableExample();
+}
 public class VariableExample {
 
     int number = 10;
