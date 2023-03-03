@@ -3,6 +3,11 @@ package CoreJava;
 public class StaticKeywordExample {
 
     static int number;
+    static int n;
+
+    {
+        n=10;
+    }
     int id;
     {
         System.out.println("inside non-static");
@@ -22,5 +27,13 @@ public class StaticKeywordExample {
         System.out.println("Main Method called");
         System.out.println("Number : " + StaticKeywordExample.number);
         System.out.println("ID : " + new StaticKeywordExample().id);
+
+//        float a = 50/0;
+
+//        System.out.println("Result : " + a);
+
+        System.out.println("String " + 10 + 10 );
+
     }
+
 }
