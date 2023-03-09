@@ -8,17 +8,19 @@ import java.time.Instant;
 
 class ReadIpFromFile {
 
-    public static String[] readIP() {
+    public static String readIP() {
 
         String[] ipRange = new String[2];
 
-        final String file = "/home/deven/tempFiles/IPs.txt";
+        final String fileOfIPs = "/home/deven/tempFiles/IPs.txt";
 
         BufferedReader fileReader = null;
 
+        String allIPs = "";
+
         try {
 
-            fileReader = new BufferedReader(new FileReader(file));
+            fileReader = new BufferedReader(new FileReader(fileOfIPs));
 
             ipRange[0] = fileReader.readLine();
 
@@ -26,24 +28,31 @@ class ReadIpFromFile {
 
             while ((ip = fileReader.readLine()) != null) {
 
-                ipRange[1] = ip;
+//                ipRange[1] = ip;
+
+                allIPs = allIPs.concat(ip + " ");
 
             }
 
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } finally {
+
+            try {
+                fileReader.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        return ipRange;
+        return allIPs;
     }
 
 }
 
 public class UpandDownIPs {
 
-    public static String getInfo(String output) {
+    public static String getStatus(String output) {
 
         String status = "DOWN";
 
@@ -76,13 +85,13 @@ public class UpandDownIPs {
 
     public static void main(String[] args) {
 
-        String[] ipRange = ReadIpFromFile.readIP();
+//        String[] ipRange = ReadIpFromFile.readIP();
 
-        System.out.println("First : " + ipRange[0]);
+//        System.out.println("First : " + ipRange[0]);
 
-        System.out.println("Second : " + ipRange[1]);
+//        System.out.println("Last : " + ipRange[1]);
 
-        String command = "fping -c 3 -q -g " + ipRange[0] + " " + ipRange[1];
+        String command = "fping -c 3 -q " + ReadIpFromFile.readIP();
 
         String command2 = "fping -c 1 -g 10.20.40.1 10.20.40.11";
 
@@ -123,8 +132,7 @@ public class UpandDownIPs {
 
             while ((output = processReader.readLine()) != null) {
 
-//                System.out.println(output);
-                System.out.println(output.split(" ", 2)[0] + " is " + UpandDownIPs.getInfo(output));
+                System.out.println(output.split(" ", 2)[0] + " is " + UpandDownIPs.getStatus(output));
 
             }
 
