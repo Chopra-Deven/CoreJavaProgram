@@ -22,6 +22,4 @@ public class CustomGenNumeric <T extends Integer>{
 
         return obj;
     }
-
-
 }
