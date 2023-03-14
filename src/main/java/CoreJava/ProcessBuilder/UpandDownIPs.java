@@ -10,8 +10,6 @@ class ReadIpFromFile {
 
     public static String readIP() {
 
-        String[] ipRange = new String[2];
-
         final String fileOfIPs = "/home/deven/tempFiles/IPs.txt";
 
         BufferedReader fileReader = null;
@@ -22,13 +20,9 @@ class ReadIpFromFile {
 
             fileReader = new BufferedReader(new FileReader(fileOfIPs));
 
-            ipRange[0] = fileReader.readLine();
-
             String ip = "";
 
             while ((ip = fileReader.readLine()) != null) {
-
-//                ipRange[1] = ip;
 
                 allIPs = allIPs.concat(ip + " ");
 
@@ -62,8 +56,6 @@ public class UpandDownIPs {
 
             String[] packetInfo = splitedOutput[4].split("/");
 
-//            System.out.println("Data : " + splitedOutput[4]);
-
             int sentPackets = Integer.parseInt(packetInfo[0]);
 
             int recievedPackets = Integer.parseInt(packetInfo[1]);
@@ -84,12 +76,6 @@ public class UpandDownIPs {
     }
 
     public static void main(String[] args) {
-
-//        String[] ipRange = ReadIpFromFile.readIP();
-
-//        System.out.println("First : " + ipRange[0]);
-
-//        System.out.println("Last : " + ipRange[1]);
 
         String command = "fping -c 3 -q " + ReadIpFromFile.readIP();
 
@@ -114,14 +100,14 @@ public class UpandDownIPs {
             if (exitCode == 0) {
                 // Command executed successfully
                 // You can read the output of the command from the process input stream
-                System.out.println("InputStream Called!!");
+//                System.out.println("InputStream Called!!");
 
                 inputStream = process.getInputStream();
                 // Process the output as needed
             } else {
                 // Command execution failed
                 // You can read the error output of the command from the process error stream
-                System.out.println("ErrorStream Called!!");
+//                System.out.println("ErrorStream Called!!");
                 inputStream = process.getErrorStream();
                 // Process the error output as needed
             }
