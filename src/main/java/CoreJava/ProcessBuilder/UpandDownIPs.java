@@ -1,20 +1,19 @@
 package CoreJava.ProcessBuilder;
 
-import CoreJava.StaticKeywordExample;
-
 import java.io.*;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.*;
 
-class ReadIpFromFile {
+public class UpandDownIPs {
 
-    public static String readIP() {
+    public static List<String> readIP() {
 
         final String fileOfIPs = "/home/deven/tempFiles/IPs.txt";
 
         BufferedReader fileReader = null;
 
-        String allIPs = "";
+        List<String> listOfIps = null;
 
         try {
 
@@ -22,9 +21,11 @@ class ReadIpFromFile {
 
             String ip = "";
 
+            listOfIps = new ArrayList<>();
+
             while ((ip = fileReader.readLine()) != null) {
 
-                allIPs = allIPs.concat(ip + " ");
+                listOfIps.add(ip);
 
             }
 
@@ -39,16 +40,81 @@ class ReadIpFromFile {
             }
         }
 
-        return allIPs;
+        return listOfIps;
     }
 
-}
+    public static Map<String, String> ping() {
 
-public class UpandDownIPs {
+        int numberOfPings = 3;
+
+//        ProcessBuilder builder = new ProcessBuilder("/bin/sh", "-c", command);
+
+        List<String> list = new ArrayList<>();
+
+        list.add("fping");
+
+        list.add("-c");
+
+        list.add(String.valueOf(numberOfPings));
+
+        list.add("-q");
+
+        list.addAll(readIP());
+
+        ProcessBuilder builder = new ProcessBuilder(list);
+
+//        System.out.println("Command : " + builder.command());
+
+        BufferedReader processReader = null;
+
+        Map<String, String> mapOfStatus = null;
+
+        try {
+
+            Process process = builder.start();
+
+            int exitCode = process.waitFor();
+
+            InputStream inputStream = null;
+
+            if (exitCode == 0)
+
+                inputStream = process.getInputStream();
+
+            else
+
+                inputStream = process.getErrorStream();
+
+
+            processReader = new BufferedReader(new InputStreamReader(inputStream));
+
+            String output;
+
+            mapOfStatus = new TreeMap<>();
+
+            while ((output = processReader.readLine()) != null) {
+
+                mapOfStatus.put(output.split(" ", 2)[0], getStatus(output));
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                processReader.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return mapOfStatus;
+    }
+
 
     public static String getStatus(String output) {
 
-        String status = "DOWN";
+        String status = "";
 
         try {
 
@@ -77,64 +143,19 @@ public class UpandDownIPs {
 
     public static void main(String[] args) {
 
-        String command = "fping -c 3 -q " + ReadIpFromFile.readIP();
-
-        String command2 = "fping -c 1 -g 10.20.40.1 10.20.40.11";
-
-        ProcessBuilder builder = new ProcessBuilder("/bin/sh", "-c", command);
-
-        System.out.println("Command : " + builder.command());
-
-        BufferedReader processReader = null;
-
         Instant start_time = Instant.now();
 
-        try {
+        Map<String, String> map = ping();
 
-            Process process = builder.start();
+        for (Map.Entry<String, String> entry : map.entrySet()) {
 
-            int exitCode = process.waitFor();
+            System.out.println(entry.getKey() + " is " + entry.getValue());
 
-            InputStream inputStream = null;
-
-            if (exitCode == 0) {
-                // Command executed successfully
-                // You can read the output of the command from the process input stream
-//                System.out.println("InputStream Called!!");
-
-                inputStream = process.getInputStream();
-                // Process the output as needed
-            } else {
-                // Command execution failed
-                // You can read the error output of the command from the process error stream
-//                System.out.println("ErrorStream Called!!");
-                inputStream = process.getErrorStream();
-                // Process the error output as needed
-            }
-
-            processReader = new BufferedReader(new InputStreamReader(inputStream));
-
-            String output;
-
-            while ((output = processReader.readLine()) != null) {
-
-                System.out.println(output.split(" ", 2)[0] + " is " + UpandDownIPs.getStatus(output));
-
-            }
-
-            Instant stop_time = Instant.now();
-
-            System.out.println("\n\nTime Taken : " + Duration.between(start_time, stop_time).toMillis());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                processReader.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
+
+        Instant stop_time = Instant.now();
+
+        System.out.println("\n\nTime Taken : " + Duration.between(start_time, stop_time).toMillis());
 
     }
 
