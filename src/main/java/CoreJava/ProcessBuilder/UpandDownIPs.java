@@ -43,7 +43,7 @@ public class UpandDownIPs {
         return listOfIps;
     }
 
-    public static Map<String, String> ping() {
+    public static Map<String, String> ping(List<String> listOfIps) {
 
         int numberOfPings = 3;
 
@@ -59,7 +59,7 @@ public class UpandDownIPs {
 
         list.add("-q");
 
-        list.addAll(readIP());
+        list.addAll(listOfIps);
 
         ProcessBuilder builder = new ProcessBuilder(list);
 
@@ -145,7 +145,9 @@ public class UpandDownIPs {
 
         Instant start_time = Instant.now();
 
-        Map<String, String> map = ping();
+        List<String> listOfIps = readIP();
+
+        Map<String, String> map = ping(listOfIps);
 
         for (Map.Entry<String, String> entry : map.entrySet()) {
 
