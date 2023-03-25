@@ -114,7 +114,7 @@ public class UpandDownIPs {
 
     public static String getStatus(String output) {
 
-        String status = "";
+        String status = "DOWN";
 
         try {
 
