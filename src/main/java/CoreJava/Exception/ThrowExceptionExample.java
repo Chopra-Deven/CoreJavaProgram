@@ -2,16 +2,21 @@ package CoreJava.Exception;
 
 import java.io.IOException;
 
-class ThrowExceptionClass{
 
-    public static void validateAge(int age)  {
+class ThrowExceptionClass
+{
 
-        if(age < 18){
+    public static void validateAge(int age)
+    {
+
+        if (age < 18)
+        {
 
             throw new ArithmeticException("Invalidte age");
 
         }
-        else{
+        else
+        {
 
             System.out.println("Valid age");
 
@@ -21,15 +26,20 @@ class ThrowExceptionClass{
 
 }
 
-public class ThrowExceptionExample {
+public class ThrowExceptionExample
+{
 
-    public static void main(String[] args){
+    public static void main(String[] args)
+    {
 
         ThrowExceptionClass object = new ThrowExceptionClass();
 
-        try {
+        try
+        {
             ThrowExceptionClass.validateAge(13);
-        } catch (ArithmeticException e) {
+        }
+        catch (ArithmeticException e)
+        {
             e.printStackTrace();
         }
 

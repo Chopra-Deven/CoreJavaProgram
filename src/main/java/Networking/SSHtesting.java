@@ -8,18 +8,22 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 class SSHtesting {
-    private static final String SSH_HOST = "nikunj@10.20.40.197";
-    private static final String SSH_LOGIN = "nikunj";
-    private static final String SSH_PASSWORD = "Mind@123";
+    private static final String SSH_HOST = "10.20.40.158";
+    private static final String SSH_LOGIN = "yash";
+    private static final String SSH_PASSWORD = "tree0007";
 
     public static void main(String[] args) throws JSchException, IOException {
 
         String command = "vmstat";
 
         JSch jsch = new JSch();
-        Session session = jsch.getSession(SSH_LOGIN, SSH_HOST, 1267);
+
+        Session session = jsch.getSession(SSH_LOGIN, SSH_HOST, 22);
+
         session.setPassword(SSH_PASSWORD);
+
         session.setConfig("StrictHostKeyChecking", "no");
+
         session.connect();
 
         System.out.println("Connection success!!!!!!!!");

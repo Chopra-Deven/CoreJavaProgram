@@ -59,6 +59,8 @@ public class UpandDownIPs {
 
         list.add("-q");
 
+//        list.add("10.20.40.234");
+
         list.addAll(listOfIps);
 
         ProcessBuilder builder = new ProcessBuilder(list);
@@ -77,16 +79,19 @@ public class UpandDownIPs {
 
             InputStream inputStream = null;
 
-            if (exitCode == 0)
+            InputStream outputStream = null;
 
-                inputStream = process.getInputStream();
-
-            else
-
+            if (exitCode == 0) {
+                System.out.println("Inside if");
                 inputStream = process.getErrorStream();
-
+            } else {
+                System.out.println("Inside else");
+                inputStream = process.getErrorStream();
+            }
 
             processReader = new BufferedReader(new InputStreamReader(inputStream));
+
+            System.out.println(processReader.readLine());
 
             String output;
 

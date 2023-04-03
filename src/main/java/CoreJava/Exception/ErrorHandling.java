@@ -1,22 +1,31 @@
 package CoreJava.Exception;
 
-class ThrowError{
+class ThrowError
+{
 
-    public static void stackError(){
+    public static void stackError()
+    {
+
         throw new StackOverflowError();
+        
     }
 
 }
 
-public class ErrorHandling{
+public class ErrorHandling
+{
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
 
-        try {
+        try
+        {
 
             ThrowError.stackError();
+
         }
-        catch(StackOverflowError error){
+        catch (StackOverflowError error)
+        {
             System.out.println(error);
         }
 
