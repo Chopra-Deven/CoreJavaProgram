@@ -4,15 +4,19 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerSocketExample {
 
-    public static void main(String[] args) {
+public class ServerSocketExample
+{
+
+    public static void main(String[] args)
+    {
 
         ServerSocket server = null;
 
         Socket socket = null;
 
-        try {
+        try
+        {
 
             server = new ServerSocket(8787);
 
@@ -33,7 +37,8 @@ public class ServerSocketExample {
             String sendMsg = "";
 
 
-            while (!recievedMsg.equals("stop")) {
+            while (!recievedMsg.equals("stop"))
+            {
 
                 recievedMsg = inputStream.readUTF();
 
@@ -49,19 +54,26 @@ public class ServerSocketExample {
 
             }
 
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
 
             e.printStackTrace();
 
-        } finally {
+        }
+        finally
+        {
 
-            try {
+            try
+            {
 
                 server.close();
 
                 socket.close();
 
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
                 e.printStackTrace();
             }
 

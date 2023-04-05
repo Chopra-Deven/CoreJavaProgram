@@ -1,30 +1,44 @@
 package CoreJava.temp;
 
-class A {
-    public static void printName() {
+class A
+{
+
+    public static void printName()
+    {
 
         System.out.println("Value-A");
     }
+
 }
 
-class B extends A {
+class B extends A
+{
 
-    public static void printName() {
+    public static void printName()
+    {
+
         System.out.println("Value-B");
     }
+
 }
 
-public class McqExample {
+public class McqExample
+{
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
 
         A a = new B();
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++)
+        {
             McqExample obj = new McqExample();
-            try {
+            try
+            {
                 Thread.sleep(100);
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e)
+            {
                 throw new RuntimeException(e);
             }
 
@@ -33,4 +47,5 @@ public class McqExample {
         a.printName();
 
     }
+
 }

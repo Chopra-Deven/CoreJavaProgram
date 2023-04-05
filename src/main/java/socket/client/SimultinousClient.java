@@ -23,7 +23,7 @@ public class SimultinousClient
 
         try
         {
-            clientSocket = new Socket("localhost", 2222);
+            clientSocket = new Socket("10.20.40.229", 9999);
 
             System.out.println("\nConnected!\n");
 
